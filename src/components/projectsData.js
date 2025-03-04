@@ -1,0 +1,92 @@
+const projects = [
+    {
+      id: 1,
+      title: "Mood Tales",
+      description: "Emotion Aware Interactive storytelling AI for children",
+      category: "ai",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/mood_tales.png",
+      contentUrl: "https://www.canva.com/design/DAGeoLdUniI/qYlI0nqd2mP-uKZpWeS3fw/view",
+    },
+    {
+      id: 2,
+      title: "Interaction Analysis",
+      description: "Analysis of good and bad design principles in interfaces",
+      category: "ux & cognition",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/efd_1.png",
+      contentUrl: "/assets/A1_Ergonomics.pdf",
+    },
+    {
+      id: 3,
+      title: "AI Agents",
+      description: "Transforming Enterprise Workflows research paper",
+      category: "ai",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/ai_agents.png",
+      contentUrl: "/assets/AIAgents_Paper.pdf",
+    },
+    {
+      id: 4,
+      title: "MakeMyTrip Website Interaction Scenario",
+      description: "Cognition of information processing and design",
+      category: "ux & cognition",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/cipd_1.png",
+      contentUrl: "/assets/MakeMyTrip_InteractionScenario.pdf",
+    },
+    {
+      id: 5,
+      title: "Design Principles Review",
+      description: "Assignment 2: Design principles review of MakeMyTrip",
+      category: "ux & cognition",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/cipd_2.png",
+      contentUrl: "/assets/MakeMyTrip_DesignPrinciples.pdf",
+    },
+    {
+      id: 6,
+      title: "Task Analysis - Norman's Interaction Cycle",
+      description: "Assignment 4: MakeMyTrip Website Analysis",
+      category: "ux & cognition",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/cipd_4.png",
+      contentUrl: "/assets/MakeMyTrip_TaskAnalysis.pdf",
+    },
+    {
+      id: 7,
+      title: "Impact of Attention and Multitasking on UI Design",
+      description: "Cognition project on effective UI design",
+      category: "ux & cognition",
+      type: "multi-pdf",
+      thumbnailUrl: "/assets/thumbnail/cipd_project.png",
+      contentUrls: [
+        { label: "Presentation", url: "/assets/AttentionMultitasking_Presentation.pdf" },
+        { label: "Report", url: "/assets/AttentionMultitasking_Report.pdf" },
+      ],
+    },
+    {
+      id: 8,
+      title: "FOOD DETECTION AND ANALYSIS",
+      description: "Website for making informed dietary choices",
+      category: "ai",
+      type: "pdf",
+      thumbnailUrl: "/assets/thumbnail/food_detection.png",
+      contentUrl: "/assets/FoodDetection_Website.pdf",
+    },
+    {
+      id: 9,
+      title: "DL Based Image Analysis for CDC",
+      description: "Crossmatch workflow and technical architecture",
+      category: "ai",
+      type: "image-gallery",
+      thumbnailUrl: "/assets/CDC_Workflow.png",
+      images: [
+        { label: "Technical Architecture", url: "/assets/CDC_TechnicalArchitecture.png" },
+        { label: "Workflow Diagram", url: "/assets/CDC_Workflow.png" },
+      ],
+    }
+  ];
+  
+  export default projects;
+  

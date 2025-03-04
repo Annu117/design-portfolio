@@ -1,119 +1,19 @@
 import React, { useState } from 'react';
+import projectsData from './projectsData';  
 
 const DesignPortfolio = () => {
   // Define categories
   const categories = [
     { id: 'all', label: 'All Projects' },
     { id: 'ai', label: 'AI Projects' },
-    // { id: 'ux', label: 'UX Analysis' },
     { id: 'ux & cognition', label: 'UX Analysis & Cognition' },
-    // { id: 'other', label: 'Other Projects' }
   ];
 
-  // Your actual projects based on the assets you described
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      title: "Mood Tales",
-      description: "Emotion Aware Interactive storytelling AI for children",
-      category: "ai",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/mood_tales.png",
-      contentUrl: "/assets/MoodTales_Presentation.pdf",
-    },
-    {
-      id: 2,
-      title: "Interaction Analysis",
-      description: "Analysis of good and bad design principles in interfaces, Ergonomics/Human factors for Design Assignment 1",
-      category: "ux & cognition",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/efd_1.png",
-      contentUrl: "/assets/InteractionAnalysis_Presentation.pdf",
-    },
-    {
-      id: 3,
-      title: "AI Agents",
-      description: "Transforming Enterprise Workflows research paper",
-      category: "ai",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/ai_agents.png",
-      contentUrl: "/assets/AIAgents_Paper.pdf",
-    },
-    {
-      id: 4,
-      title: "MakeMyTrip Website Interaction Scenario",
-      description: "Cognition of information processing and design Assignment 1",
-      category: "ux & cognition",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/cipd_1.png",
-      contentUrl: "/assets/MakeMyTrip_InteractionScenario.pdf",
-    },
-    {
-      id: 5,
-      title: "Design Principles Review",
-      description: "Assignment 2: Design principles review of MakeMyTrip",
-      category: "ux & cognition",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/cipd_2.png",
-      contentUrl: "/assets/MakeMyTrip_DesignPrinciples.pdf",
-    },
-    {
-      id: 6,
-      title: "Task Analysis - Norman's Interaction Cycle",
-      description: "Assignment 4: MakeMyTrip Website Analysis",
-      category: "ux & cognition",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/cipd_4.png",
-      contentUrl: "/assets/MakeMyTrip_TaskAnalysis.pdf",
-    },
-    {
-      id: 7,
-      title: "Impact of Attention and Multitasking on UI Design",
-      description: "Cognition project on effective UI design",
-      category: "ux & cognition",
-      type: "multi-pdf",
-      thumbnailUrl: "/assets/thumbnail/cipd_project.png",
-      contentUrls: [
-        {label: "Presentation", url: "/assets/AttentionMultitasking_Presentation.pdf"},
-        {label: "Report", url: "/assets/AttentionMultitasking_Report.pdf"},
-      ]
-    },
-    {
-      id: 8,
-      title: "FOOD DETECTION AND ANALYSIS",
-      description: "Website for making informed dietary choices",
-      category: "ai",
-      type: "pdf",
-      thumbnailUrl: "/assets/thumbnail/food_detection.png",
-      contentUrl: "/assets/FoodDetection_Website.pdf",
-    },
-    // {
-    //   id: 9,
-    //   title: "Self Growth - Yoga",
-    //   description: "Yoga poster design",
-    //   category: "other",
-    //   type: "image",
-    //   thumbnailUrl: "/assets/SelfGrowth_Yoga.png",
-    //   imageUrl: "/assets/SelfGrowth_Yoga.png",
-    // },
-    {
-      id: 10,
-      title: "DL Based Image Analysis for CDC",
-      description: "Crossmatch workflow and technical architecture",
-      category: "ai",
-      type: "image-gallery",
-      thumbnailUrl: "/assets/CDC_Workflow.png",
-      images: [
-        {label: "Technical Architecture", url: "/assets/CDC_TechnicalArchitecture.png"},
-        {label: "Workflow Diagram", url: "/assets/CDC_Workflow.png"},
-        
-      ]
-    }
-  ]);
-
+  const [projects, setProjects] = useState(projectsData);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedPdf, setSelectedPdf] = useState(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   // Filter projects based on active category
   const filteredProjects = activeCategory === 'all' 
@@ -122,7 +22,7 @@ const DesignPortfolio = () => {
 
   const handleProjectSelect = (project) => {
     setSelectedProject(project);
-    if (project.type === 'multi-pdf') {
+    if (project.type === 'multi-pdf' && project.title === 'Mood Tales') {
       setSelectedPdf(project.contentUrls[0].url);
     }
   };
@@ -130,10 +30,15 @@ const DesignPortfolio = () => {
   const handleCloseModal = () => {
     setSelectedProject(null);
     setSelectedPdf(null);
+    setIsFullScreen(false);
   };
 
   const changePdf = (pdfUrl) => {
     setSelectedPdf(pdfUrl);
+    setIsFullScreen(false);
+  };
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
   };
 
   return (
@@ -202,48 +107,45 @@ const DesignPortfolio = () => {
       {/* Modal for viewing selected project */}
       {selectedProject && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg w-full max-w-5xl max-h-screen overflow-auto">
+          <div className={`bg-white rounded-lg w-full max-w-5xl max-h-screen overflow-auto transition-all duration-300 ${
+            isFullScreen ? 'fixed inset-0 w-screen h-screen max-w-none max-h-none z-50' : ''
+          }`}>
             <div className="sticky top-0 bg-white flex justify-between items-center border-b border-gray-200 p-4 z-10">
               <h2 className="text-xl font-bold truncate">{selectedProject.title}</h2>
-              <button 
-                onClick={handleCloseModal}
-                className="ml-4 text-gray-500 hover:text-gray-700 p-2"
-                aria-label="Close"
-              >
-                ✕
-              </button>
+              <div className="flex items-center space-x-2">
+                {(selectedProject.type === 'pdf' || selectedProject.type === 'multi-pdf') && (
+                  <button 
+                    onClick={toggleFullScreen}
+                    className="ml-4 text-gray-500 hover:text-gray-700 p-2"
+                    aria-label={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+                  >
+                    {isFullScreen ? '↙️' : '↗️'}
+                  </button>
+                )}
+                <button 
+                  onClick={handleCloseModal}
+                  className="ml-4 text-gray-500 hover:text-gray-700 p-2"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
             
-            <div className="p-4 md:p-6">
+            <div className={`p-4 md:p-6 flex-grow overflow-auto ${
+              isFullScreen ? 'flex flex-col' : ''
+            }`}>
               <p className="mb-6 text-gray-700">{selectedProject.description}</p>
+               {/* PDF Viewer */}
               
-              {/* PDF Viewer */}
-              {(selectedProject.type === 'pdf') && (
-                <div className="bg-gray-100 p-4 rounded flex flex-col items-center">
-                  <div className="w-full bg-white shadow rounded overflow-hidden p-4 text-center">
-                    <a 
-                      href={selectedProject.contentUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                    >
-                      Open PDF
-                    </a>
-                    <p className="mt-4 text-gray-500">
-                      The PDF viewer requires additional dependencies. Click the button above to open the PDF in a new tab.
-                    </p>
-                  </div>
-                </div>
-              )}
-              
-              {/* Multiple PDFs */}
-              {selectedProject.type === 'multi-pdf' && (
-                <div className="bg-gray-100 p-4 rounded flex flex-col items-center">
-                  <div className="mb-4 flex space-x-4">
+            {(selectedProject.type === 'pdf' || selectedProject.type === 'multi-pdf') && (
+              <div className="bg-gray-100 p-4 rounded flex flex-col items-center">
+                {selectedProject.type === 'multi-pdf' && (
+                  <div className="mb-4 flex space-x-4 overflow-x-auto">
                     {selectedProject.contentUrls.map((pdf, index) => (
                       <button
                         key={index}
-                        className={`px-4 py-2 rounded-full ${
+                        className={`px-4 py-2 rounded-full whitespace-nowrap ${
                           selectedPdf === pdf.url
                             ? 'bg-blue-600 text-white'
                             : 'bg-white text-blue-600 border border-blue-600'
@@ -254,23 +156,55 @@ const DesignPortfolio = () => {
                       </button>
                     ))}
                   </div>
-                  
-                  <div className="w-full bg-white shadow rounded overflow-hidden p-4 text-center">
-                    <a 
-                      href={selectedPdf} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                    >
-                      Open Selected PDF
-                    </a>
-                    <p className="mt-4 text-gray-500">
-                      The PDF viewer requires additional dependencies. Click the button above to open the PDF in a new tab.
-                    </p>
+                )}
+                <div className="flex items-center w-full">
+                  <a 
+                    href={selectedProject.contentUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="ml-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Open in New Tab
+                  </a>
+                </div>
+
+              <div className={`w-full bg-white shadow rounded overflow-hidden ${
+                    isFullScreen ? 'fixed inset-0 z-50 w-screen h-screen' : ''
+                  }`}>
+                    <div className={`sticky top-0 bg-white flex justify-between items-center border-b border-gray-200 p-4 z-10 ${
+                      !isFullScreen && 'hidden'
+                    }`}>
+                      <h2 className="text-xl font-bold truncate">{selectedProject.title}</h2>
+                      <div className="flex items-center space-x-2">
+                        <button 
+                          onClick={toggleFullScreen}
+                          className="ml-4 text-gray-500 hover:text-gray-700 p-2"
+                          aria-label="Exit Full Screen"
+                        >
+                          ↙️
+                        </button>
+                        <button 
+                          onClick={handleCloseModal}
+                          className="ml-4 text-gray-500 hover:text-gray-700 p-2"
+                          aria-label="Close"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+                    <iframe 
+                      // src={selectedProject.contentUrl}
+                      src={selectedPdf || selectedProject.contentUrl} 
+                      width="100%" 
+                      height={isFullScreen ? '95%' : '600px'}
+                      title={selectedProject.title}
+                      className={isFullScreen ? 'h-[calc(100%-60px)]' : ''}
+                      allowFullScreen
+                    />
+
                   </div>
                 </div>
               )}
-              
               {/* Single Image */}
               {selectedProject.type === 'image' && (
                 <div className="flex justify-center">
