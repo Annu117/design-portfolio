@@ -2,7 +2,7 @@ const projects = [
     {
       id: 1,
       title: "Mood Tales",
-      description: "Emotion Aware Interactive storytelling AI for children",
+      description: "Emotion Aware Interactive storytelling AI for kids",
       category: "ai",
       type: "pdf",
       thumbnailUrl: "/assets/thumbnail/mood_tales.png",
@@ -11,7 +11,7 @@ const projects = [
     {
       id: 2,
       title: "Interaction Analysis",
-      description: "Analysis of good and bad design principles in interfaces",
+      description: "Analysis of good and bad design principles",
       category: "ux & cognition",
       type: "pdf",
       thumbnailUrl: "/assets/thumbnail/efd_1.png",
@@ -20,7 +20,7 @@ const projects = [
     {
       id: 3,
       title: "AI Agents",
-      description: "Transforming Enterprise Workflows research paper",
+      description: "Transforming Enterprise Workflows analysis",
       category: "ai",
       type: "pdf",
       thumbnailUrl: "/assets/thumbnail/ai_agents.png",
