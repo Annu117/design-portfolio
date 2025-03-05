@@ -67,7 +67,7 @@ const projects = [
     },
     {
       id: 8,
-      title: "FOOD DETECTION AND ANALYSIS",
+      title: "Food Detection and Analysis",
       description: "Website for making informed dietary choices",
       category: "ai",
       type: "pdf",
@@ -76,14 +76,15 @@ const projects = [
     },
     {
       id: 9,
-      title: "DL Based Image Analysis for CDC",
-      description: "Crossmatch workflow and technical architecture",
+      title: "DL Based Image Analysis for CDC Crossmatch Imaging",
+      // description: "Crossmatch workflow and technical architecture",
+      description: "",
       category: "ai",
       type: "image-gallery",
       thumbnailUrl: "/assets/CDC_Workflow.png",
       images: [
         { label: "Technical Architecture", url: "/assets/CDC_TechnicalArchitecture.png" },
-        { label: "Workflow Diagram", url: "/assets/CDC_Workflow.png" },
+        { label: "Workflow Pipeline", url: "/assets/CDC_Workflow.png" },
       ],
     }
   ];
